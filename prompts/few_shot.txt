@@ -1,0 +1,44 @@
+Generate a Python pytest test suite using the 'requests' library for the following REST API.
+
+BASE_URL = 'http://localhost:80'
+
+RULES:
+- Test ALL endpoints documented in the OpenAPI specification below.
+- Assert HTTP status codes for every test.
+- Assert at least one field in the JSON response body where applicable.
+- Do NOT include markdown fences. Output ONLY Python code.
+
+Here are three examples of well-formed tests:
+
+--- EXAMPLE 1: GET returning a list ---
+def test_catalogue_get():
+    response = requests.get(f"{BASE_URL}/catalogue")
+    assert response.status_code == 200
+    data = response.json()
+    assert isinstance(data, list)
+    assert len(data) > 0
+    assert "id" in data[0]
+    assert "name" in data[0]
+
+--- EXAMPLE 2: GET with a path parameter ---
+def test_customer_get():
+    customer_id = "test-001"
+    response = requests.get(f"{BASE_URL}/customers/{customer_id}")
+    assert response.status_code in (200, 404)
+    if response.status_code == 200:
+        assert "id" in response.json()
+
+--- EXAMPLE 3: POST with a JSON body ---
+def test_customer_post():
+    payload = {"id": "test-002", "name": "Test User"}
+    response = requests.post(f"{BASE_URL}/customers", json=payload)
+    assert response.status_code in (201, 400, 409)
+    if response.status_code == 201:
+        assert "id" in response.json()
+
+--- END EXAMPLES ---
+
+Now generate tests for the following API:
+
+OpenAPI Specification:
+{oas}

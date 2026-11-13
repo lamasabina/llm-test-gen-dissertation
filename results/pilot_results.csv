@@ -1,0 +1,2 @@
+timestamp,benchmark,method,time_budget,generation_time,tokens,success
+2026-08-30T16:53:26.748735,sock-shop,llm-zero-shot,15,39.59568691253662,729,True

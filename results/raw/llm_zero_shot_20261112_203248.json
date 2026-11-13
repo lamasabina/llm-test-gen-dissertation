@@ -1,0 +1,13 @@
+{
+  "strategy": "llm_zero_shot",
+  "model": "codellama:7b-instruct-q4_K_M",
+  "temperature": 0.2,
+  "seed": 47,
+  "generation_time_s": 29.775,
+  "prompt_chars": 1002,
+  "prompt_tokens": 319,
+  "completion_tokens": 652,
+  "generated_chars": 2107,
+  "generated_code": "\nimport pytest\nimport requests\n\n@pytest.fixture(scope=\"module\")\ndef client():\n    return requests.Session()\n\nclass TestAPI:\n    def test_catalogue_get(self, client):\n        response = client.get(\"http://localhost:80/catalogue\")\n        assert response.status_code == 200\n        assert \"products\" in response.json()\n\n    def test_catalogue_get_by_id(self, client):\n        response = client.get(\"http://localhost:80/catalogue/1\")\n        assert response.status_code == 200\n        assert \"product\" in response.json()\n\n    def test_carts_get(self, client):\n        response = client.get(\"http://localhost:80/carts/1\")\n        assert response.status_code == 200\n        assert \"cart\" in response.json()\n\n    def test_carts_post(self, client):\n        response = client.post(\"http://localhost:80/carts\")\n        assert response.status_code == 201\n        assert \"cart\" in response.json()\n\n    def test_carts_items_get(self, client):\n        response = client.get(\"http://localhost:80/carts/1/items\")\n        assert response.status_code == 200\n        assert \"items\" in response.json()\n\n    def test_carts_items_post(self, client):\n        response = client.post(\"http://localhost:80/carts/1/items\")\n        assert response.status_code == 201\n        assert \"item\" in response.json()\n\n    def test_orders_get(self, client):\n        response = client.get(\"http://localhost:80/orders\")\n        assert response.status_code == 200\n        assert \"orders\" in response.json()\n\n    def test_orders_post(self, client):\n        response = client.post(\"http://localhost:80/orders\")\n        assert response.status_code == 201\n        assert \"order\" in response.json()\n\n    def test_customers_get(self, client):\n        response = client.get(\"http://localhost:80/customers/1\")\n        assert response.status_code == 200\n        assert \"customer\" in response.json()\n\n    def test_customers_post(self, client):\n        response = client.post(\"http://localhost:80/customers\")\n        assert response.status_code == 201\n        assert \"customer\" in response.json()\n\nif __name__ == \"__main__\":\n    pytest.main([\"-s\", __file__])",
+  "timestamp": "2026-11-12T20:32:48.214211"
+}

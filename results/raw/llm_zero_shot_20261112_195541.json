@@ -1,0 +1,12 @@
+{
+  "strategy": "llm_zero_shot",
+  "model": "codellama:7b-instruct-q4_K_M",
+  "temperature": 0.2,
+  "generation_time_s": 13.339,
+  "prompt_chars": 1002,
+  "prompt_tokens": 319,
+  "completion_tokens": 295,
+  "generated_chars": 1123,
+  "generated_code": "\nHere is a sample Python pytest test suite using the `requests` library to test the REST API described in the OpenAPI specification:\n```\nimport pytest\nimport requests\n\nBASE_URL = 'http://localhost:80'\n\n@pytest.mark.parametrize('endpoint', ['/catalogue', '/catalogue/{id}', '/carts/{id}', '/carts', '/carts/{id}/items', '/orders', '/orders/{id}', '/customers/{id}', '/customers'])\ndef test_endpoints(endpoint):\n    response = requests.get(BASE_URL + endpoint)\n    assert response.status_code == 200\n    assert response.json()\n```\nThis test suite uses the `pytest.mark.parametrize` decorator to parameterize the test function with all the endpoints defined in the OpenAPI specification. The test function then sends a GET request to the endpoint using the `requests` library and asserts that the response has a status code of 200 and that the response body is a JSON object.\n\nNote that this is just a sample test suite and you may need to modify it to fit your specific requirements. Additionally, you may want to add more tests to cover other aspects of the API, such as error handling, authentication, and input validation.",
+  "timestamp": "2026-11-12T19:55:41.475004"
+}

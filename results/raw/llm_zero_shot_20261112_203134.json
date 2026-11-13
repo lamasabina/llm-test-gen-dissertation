@@ -1,0 +1,13 @@
+{
+  "strategy": "llm_zero_shot",
+  "model": "codellama:7b-instruct-q4_K_M",
+  "temperature": 0.2,
+  "seed": 43,
+  "generation_time_s": 14.433,
+  "prompt_chars": 1002,
+  "prompt_tokens": 319,
+  "completion_tokens": 227,
+  "generated_chars": 792,
+  "generated_code": "```\nimport pytest\nimport requests\n\nBASE_URL = 'http://localhost:80'\n\n@pytest.mark.parametrize('endpoint', ['/catalogue', '/catalogue/{id}', '/carts/{id}', '/carts', '/carts/{id}/items', '/orders', '/orders', '/customers/{id}', '/customers'])\ndef test_endpoints(endpoint):\n    response = requests.get(BASE_URL + endpoint)\n    assert response.status_code == 200\n    if response.json():\n        assert response.json()['data']\n```\nThis test suite uses the `pytest.mark.parametrize` decorator to parameterize the test function with all the endpoints defined in the OpenAPI specification. The `requests` library is used to make GET requests to the endpoints and assert the HTTP status code is 200. If the response contains JSON data, the test asserts that the JSON data contains at least one field.",
+  "timestamp": "2026-11-12T20:31:34.512757"
+}

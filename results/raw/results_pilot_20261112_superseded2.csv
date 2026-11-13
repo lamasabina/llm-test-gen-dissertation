@@ -1,0 +1,11 @@
+run_id,benchmark,method,budget_minutes,repetition,generation_time_s,execution_time_s,prompt_tokens,completion_tokens,line_coverage_pct,branch_coverage_pct,api_operation_coverage_pct,cce,exit_status,timeout,timestamp,verified_coverage_pct,attempted_ops,verified_ops
+llm_zero_shot_sock-shop_5m_rep1_20261112_201335,sock-shop,llm_zero_shot,5,1,13.351,0.892,319,295,,,100.0,7.4901,"passed=4,failed=5,errors=0",False,2026-11-12T20:13:35.369352,40.0,10,4
+llm_zero_shot_sock-shop_5m_rep2_20261112_201349,sock-shop,llm_zero_shot,5,2,13.106,0.915,319,295,,,100.0,7.6301,"passed=4,failed=5,errors=0",False,2026-11-12T20:13:49.626973,40.0,10,4
+llm_zero_shot_sock-shop_5m_rep3_20261112_201403,sock-shop,llm_zero_shot,5,3,12.951,0.859,319,295,,,100.0,7.7214,"passed=4,failed=5,errors=0",False,2026-11-12T20:14:03.662321,40.0,10,4
+llm_zero_shot_sock-shop_5m_rep4_20261112_201417,sock-shop,llm_zero_shot,5,4,13.042,0.914,319,295,,,100.0,7.6675,"passed=4,failed=5,errors=0",False,2026-11-12T20:14:17.486227,40.0,10,4
+llm_zero_shot_sock-shop_5m_rep5_20261112_201431,sock-shop,llm_zero_shot,5,5,12.948,0.852,319,295,,,100.0,7.7232,"passed=4,failed=5,errors=0",False,2026-11-12T20:14:31.455936,40.0,10,4
+llm_few_shot_sock-shop_5m_rep1_20261112_201445,sock-shop,llm_few_shot,5,1,37.765,1.342,670,727,,,100.0,2.648,"passed=3,failed=12,errors=0",False,2026-11-12T20:14:45.270658,10.0,10,1
+llm_few_shot_sock-shop_5m_rep2_20261112_201524,sock-shop,llm_few_shot,5,2,34.928,1.439,670,727,,,100.0,2.863,"passed=3,failed=12,errors=0",False,2026-11-12T20:15:24.401674,10.0,10,1
+llm_few_shot_sock-shop_5m_rep3_20261112_201600,sock-shop,llm_few_shot,5,3,34.176,1.395,670,727,,,100.0,2.926,"passed=3,failed=12,errors=0",False,2026-11-12T20:16:00.783192,10.0,10,1
+llm_few_shot_sock-shop_5m_rep4_20261112_201636,sock-shop,llm_few_shot,5,4,34.331,1.344,670,727,,,100.0,2.9128,"passed=3,failed=12,errors=0",False,2026-11-12T20:16:36.381719,10.0,10,1
+llm_few_shot_sock-shop_5m_rep5_20261112_201712,sock-shop,llm_few_shot,5,5,34.862,1.318,670,727,,,100.0,2.8685,"passed=3,failed=12,errors=0",False,2026-11-12T20:17:12.084180,10.0,10,1

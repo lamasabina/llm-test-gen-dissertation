@@ -1,0 +1,12 @@
+{
+  "strategy": "llm_few_shot",
+  "model": "codellama:7b-instruct-q4_K_M",
+  "temperature": 0.2,
+  "generation_time_s": 21.236,
+  "prompt_chars": 1908,
+  "prompt_tokens": 634,
+  "completion_tokens": 404,
+  "generated_chars": 1221,
+  "generated_code": "\nHere is a test suite using the `requests` library to test the API endpoints:\n```\nimport pytest\nimport requests\n\nBASE_URL = \"http://localhost:80\"\n\n@pytest.fixture(scope=\"module\")\ndef client():\n    return requests.Session()\n\ndef test_catalogue_get(client):\n    response = client.get(f\"{BASE_URL}/catalogue\")\n    assert response.status_code == 200\n    data = response.json()\n    assert isinstance(data, list)\n    assert len(data) > 0\n    assert \"id\" in data[0]\n    assert \"name\" in data[0]\n\ndef test_customer_get(client):\n    customer_id = \"test-001\"\n    response = client.get(f\"{BASE_URL}/customers/{customer_id}\")\n    assert response.status_code in (200, 404)\n    if response.status_code == 200:\n        assert \"id\" in response.json()\n\ndef test_customer_post(client):\n    payload = {\"id\": \"test-002\", \"name\": \"Test User\"}\n    response = client.post(f\"{BASE_URL}/customers\", json=payload)\n    assert response.status_code in (201, 400, 409)\n    if response.status_code == 201:\n        assert \"id\" in response.json()\n```\nNote that this test suite uses the `pytest` fixture to create a `requests.Session` object that is reused for all tests. This is more efficient than creating a new `requests.Session` object for each test.",
+  "timestamp": "2026-11-12T19:31:42.044630"
+}

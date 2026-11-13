@@ -1,0 +1,31 @@
+project_root: /Users/sabinaghising/dissertation/llm-test-gen
+model:
+  name: codellama:7b-instruct-q4_K_M
+  temperature: 0.2
+  ollama_url: http://localhost:11434/api/generate
+  timeout_safety_s: 600
+  seed_base: 42
+benchmarks:
+- name: sock-shop
+  base_url: http://localhost:80
+  compose_file: /Users/sabinaghising/dissertation/sock-shop/deploy/docker-compose/docker-compose.yml
+  health_endpoint: /catalogue
+  oas_path: /Users/sabinaghising/dissertation/sock-shop/sock-shop-oas.json
+  language: go
+  endpoint_count: 42
+  ready_timeout_s: 120
+methods:
+- llm_zero_shot
+- llm_few_shot
+- restler
+- schemathesis
+time_budgets_minutes:
+- 5
+- 15
+- 30
+repetitions: 5
+paths:
+  results_raw: results/raw
+  results_processed: results/processed
+  logs: logs
+  prompts: prompts

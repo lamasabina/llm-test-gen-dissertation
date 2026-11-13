@@ -1,0 +1,12 @@
+{
+  "strategy": "llm_zero_shot",
+  "model": "codellama:7b-instruct-q4_K_M",
+  "temperature": 0.2,
+  "generation_time_s": 5.958,
+  "prompt_chars": 891,
+  "prompt_tokens": 283,
+  "completion_tokens": 116,
+  "generated_chars": 338,
+  "generated_code": "```\nimport pytest\nimport requests\n\n\n@pytest.fixture(scope=\"module\")\ndef client():\n    return requests.Session()\n\n\n@pytest.mark.parametrize(\"path\", [\"/catalogue\"])\ndef test_get_catalogue(client, path):\n    response = client.get(f\"{BASE_URL}{path}\")\n    assert response.status_code == 200\n    assert response.json()[\"products\"][0][\"id\"]\n```",
+  "timestamp": "2026-11-12T19:35:55.734346"
+}

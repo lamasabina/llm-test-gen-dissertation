@@ -1,0 +1,8 @@
+.venv/
+__pycache__/
+*.pyc
+.coverage
+.schemathesis/
+benchmarks/sock-shop/
+results/processed/*.py
+results/figures/*.png

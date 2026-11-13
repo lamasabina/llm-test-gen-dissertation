@@ -1,0 +1,13 @@
+{
+  "strategy": "llm_zero_shot",
+  "model": "codellama:7b-instruct-q4_K_M",
+  "temperature": 0.2,
+  "seed": 45,
+  "generation_time_s": 12.298,
+  "prompt_chars": 1002,
+  "prompt_tokens": 319,
+  "completion_tokens": 276,
+  "generated_chars": 1014,
+  "generated_code": "```\nimport pytest\nimport requests\n\nBASE_URL = \"http://localhost:80\"\n\n@pytest.mark.parametrize(\"endpoint\", [\"/catalogue\", \"/catalogue/{id}\", \"/carts/{id}\", \"/carts\", \"/carts/{id}/items\", \"/orders\", \"/orders/{id}\", \"/customers/{id}\", \"/customers\"])\ndef test_endpoints(endpoint):\n    response = requests.get(BASE_URL + endpoint)\n    assert response.status_code == 200\n    if response.json():\n        assert \"data\" in response.json()\n```\nThis test suite uses the `pytest.mark.parametrize` decorator to generate a test for each endpoint in the OpenAPI specification. The `requests` library is used to make GET requests to each endpoint, and the `assert` statement is used to check the HTTP status code and the presence of a \"data\" field in the JSON response body. The `pytest.mark.parametrize` decorator takes a list of endpoint URLs as an argument, and each endpoint URL is used to generate a test function. The test function takes a single argument, `endpoint`, which is used to construct the URL for the GET request.",
+  "timestamp": "2026-11-12T20:32:06.668682"
+}

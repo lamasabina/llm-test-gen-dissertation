@@ -1,0 +1,12 @@
+Generate a Python pytest test suite using the 'requests' library for the following REST API.
+
+BASE_URL = 'http://localhost:80'
+
+RULES:
+- Test ALL endpoints documented in the OpenAPI specification below.
+- Assert HTTP status codes for every test.
+- Assert at least one field in the JSON response body where applicable.
+- Do NOT include markdown fences. Output ONLY Python code.
+
+OpenAPI Specification:
+{oas}

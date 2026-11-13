@@ -1,0 +1,74 @@
+# Experiment Configuration
+# LLM Test Generation for REST Microservices
+
+experiment:
+  name: "LLM vs Specification-Based Test Generation"
+  version: "1.0"
+  date: "2026-05-18"
+
+benchmarks:
+  sock-shop:
+    name: "Sock Shop"
+    endpoints: 42
+    language: "go"
+    repo: "https://github.com/microservices-demo/microservices-demo"
+    base_url: "http://localhost:8079"
+    oas_path: "api/oas"
+    health_check: "/health"
+    coverage_tool: "jacoco"
+    
+  train-ticket:
+    name: "Train Ticket"
+    endpoints: 68
+    language: "java"
+    repo: "https://github.com/FudanSELab/train-ticket"
+    base_url: "http://localhost:8080"
+    oas_path: "v2/api-docs"
+    health_check: "/health"
+    coverage_tool: "jacoco"
+    
+  eshop:
+    name: "eShopOnContainers"
+    endpoints: 95
+    language: "csharp"
+    repo: "https://github.com/dotnet-architecture/eShopOnContainers"
+    base_url: "http://localhost:5100"
+    oas_path: "swagger/v1/swagger.json"
+    health_check: "/health"
+    coverage_tool: "gcovr"
+
+methods:
+  - name: "llm-zero-shot"
+    type: "llm"
+    description: "Code Llama 7B with zero-shot prompting"
+    
+  - name: "llm-few-shot"
+    type: "llm"
+    description: "Code Llama 7B with few-shot prompting (3 examples)"
+    
+  - name: "schemathesis"
+    type: "specification-based"
+    description: "Property-based testing from OpenAPI spec"
+    
+  - name: "restler"
+    type: "specification-based"
+    description: "Stateful REST API fuzzing"
+
+time_budgets: [5, 15, 30]  # minutes
+repetitions: 5
+
+llm:
+  model: "codellama:7b"
+  temperature: 0.2
+  max_tokens: 2048
+  api_url: "http://localhost:11434/api/generate"
+
+output:
+  results_dir: "results"
+  logs_dir: "logs"
+  coverage_dir: "coverage_reports"
+  tests_dir: "tests/generated"
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"

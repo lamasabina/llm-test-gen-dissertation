@@ -1,0 +1,7 @@
+run_id,benchmark,method,budget_minutes,repetition,generation_time_s,execution_time_s,prompt_tokens,completion_tokens,line_coverage_pct,branch_coverage_pct,api_operation_coverage_pct,cce,exit_status,timeout,timestamp
+llm_zero_shot_sock-shop_5m_rep1_20261112_193549,sock-shop,llm_zero_shot,5,1,5.96,0.49,283,116,,,,,"passed=0,failed=1,errors=0",False,2026-11-12T19:35:49.775984
+llm_zero_shot_sock-shop_5m_rep1_20261112_195509,sock-shop,llm_zero_shot,5,1,17.154,1.553,319,295,,,0.0,,"passed=4,failed=5,errors=0",False,2026-11-12T19:55:09.327033
+llm_zero_shot_sock-shop_15m_rep1_20261112_195528,sock-shop,llm_zero_shot,15,1,13.342,0.897,319,295,,,0.0,,"passed=4,failed=5,errors=0",False,2026-11-12T19:55:28.135194
+llm_few_shot_sock-shop_5m_rep1_20261112_195542,sock-shop,llm_few_shot,5,1,38.083,1.365,670,727,,,0.0,,"passed=3,failed=12,errors=0",False,2026-11-12T19:55:42.475356
+llm_zero_shot_sock-shop_5m_rep2_20261112_195813,sock-shop,llm_zero_shot,5,2,13.536,0.932,319,295,,,0.0,0.0,"passed=4,failed=5,errors=0",False,2026-11-12T19:58:13.544854
+llm_zero_shot_sock-shop_5m_rep3_20261112_200540,sock-shop,llm_zero_shot,5,3,17.689,0.933,319,295,,,0.0,0.0,"passed=4,failed=5,errors=0",False,2026-11-12T20:05:40.201448,0.0,0,0

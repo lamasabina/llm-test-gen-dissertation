@@ -1,0 +1,2 @@
+timestamp,benchmark,method,time_budget,generation_time,execution_time,tokens,syntax_valid,tests_passed,return_code,success
+2026-10-09T14:02:33.711486,sock-shop,zero-shot,15,13.726065158843994,0.5726327896118164,167,True,False,1,True
