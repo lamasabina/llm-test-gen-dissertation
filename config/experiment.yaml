@@ -10,7 +10,7 @@ benchmarks:
   base_url: http://localhost:80
   compose_file: /Users/sabinaghising/dissertation/sock-shop/deploy/docker-compose/docker-compose.yml
   health_endpoint: /catalogue
-  oas_path: /Users/sabinaghising/dissertation/sock-shop/sock-shop-oas.json
+  oas_path: config/sock-shop-oas.json
   language: go
   endpoint_count: 42
   ready_timeout_s: 120

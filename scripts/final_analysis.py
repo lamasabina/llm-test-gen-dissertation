@@ -10,7 +10,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 PROJ = Path(__file__).resolve().parent.parent
-CSV = PROJ / "results" / "raw" / "results.csv"
+CSV = PROJ / "results" / "raw" / "reconciled_results.csv"
 FIG = PROJ / "results" / "figures"
 FIG.mkdir(parents=True, exist_ok=True)
 
@@ -40,6 +40,8 @@ for m in methods:
     for col, name in [("api_operation_coverage_pct", "attempted_cov_%"),
                       ("verified_coverage_pct", "verified_cov_%"),
                       ("generation_time_s", "gen_time_s"),
+                      ("total_method_time_s", "total_time_s"),
+                      ("execution_time_s", "exec_time_s"),
                       ("cce_verified", "CCE_verified")]:
         xs = get(m, col)
         if not xs: continue
@@ -54,7 +56,8 @@ print("HYPOTHESIS TEST — H1: Method affects verified coverage")
 print("=" * 78)
 groups = [get(m, "verified_coverage_pct") for m in methods]
 h, p = stats.kruskal(*groups)
-print(f"Kruskal-Wallis H = {h:.3f}, p = {p:.4f}")
+p_str = "p < 0.001" if p < 0.001 else f"p = {p:.4f}"
+print(f"Kruskal-Wallis H = {h:.3f}, {p_str}")
 print("→ " + ("REJECT H0 (methods differ significantly)" if p < 0.05
               else "FAIL TO REJECT H0 (no significant difference at α=0.05)"))
 

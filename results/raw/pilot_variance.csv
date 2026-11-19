@@ -1,0 +1,4 @@
+run_id,benchmark,method,budget_minutes,repetition,generation_time_s,execution_time_s,prompt_tokens,completion_tokens,line_coverage_pct,branch_coverage_pct,api_operation_coverage_pct,cce,cce_verified,exit_status,timeout,timestamp,verified_coverage_pct,attempted_ops,verified_ops
+llm_zero_shot_sock-shop_5m_rep21_20261117_133523,sock-shop,llm_zero_shot,5,21,10.47,0.91,319,223,,,80.0,7.6409,0.0,"passed=0,failed=9,errors=0",False,2026-11-17T13:35:23.378395,0.0,8,0
+llm_zero_shot_sock-shop_5m_rep22_20261117_133534,sock-shop,llm_zero_shot,5,22,28.853,2.628,319,636,,,80.0,2.7727,0.0,"passed=0,failed=36,errors=0",False,2026-11-17T13:35:34.770918,0.0,8,0
+llm_zero_shot_sock-shop_5m_rep23_20261117_133606,sock-shop,llm_zero_shot,5,23,27.434,1.489,319,604,,,80.0,2.9161,1.458,"passed=4,failed=15,errors=0",False,2026-11-17T13:36:06.282295,40.0,8,4

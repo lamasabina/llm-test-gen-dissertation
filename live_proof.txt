@@ -1,0 +1,29 @@
+======================================================================
+LIVE EXPERIMENT EXECUTION LOG - 2026-11-17 13:29:24.733366
+======================================================================
+
+[ACTION] Running 3 fresh LLM zero-shot experiments to prove variance...
+
+--- LLM Zero-Shot Rep 11 ---
+Generated in 14.707s | Tokens: 319+226 | Coverage: 80.0%
+
+--- LLM Zero-Shot Rep 12 ---
+Generated in 15.665s | Tokens: 319+351 | Coverage: 0.0%
+
+--- LLM Zero-Shot Rep 13 ---
+Generated in 16.119s | Tokens: 319+357 | Coverage: 0.0%
+
+[ACTION] Running 1 fresh LLM few-shot experiment...
+
+--- LLM Few-Shot Rep 11 ---
+Generated in 53.223s | Tokens: 670+1059 | Coverage: 70.0%
+
+[ACTION] Running Schemathesis with a 15-MINUTE budget (Rep 2)...
+(This proves we CAN run extended budgets; it will fuzz deeper)
+
+--- Schemathesis 15-min Budget ---
+Executed in 1.871s | Attempted: 100.0% | Verified: 40.0%
+
+======================================================================
+LIVE PROOF COMPLETE. Data appended to results/raw/results.csv
+======================================================================

@@ -1,0 +1,2 @@
+run_id,benchmark,method,budget_minutes,repetition,generation_time_s,execution_time_s,prompt_tokens,completion_tokens,line_coverage_pct,branch_coverage_pct,api_operation_coverage_pct,cce,cce_verified,exit_status,timeout,timestamp,verified_coverage_pct,attempted_ops,verified_ops
+schemathesis_sock-shop_15m_rep2_20261117_133109,sock-shop,schemathesis,15,2,1.871,0.0,,,,,100.0,53.4474,21.3789,"exit=1,attempted=10,verified=4",False,2026-11-17T13:31:09.733966,40.0,10,4

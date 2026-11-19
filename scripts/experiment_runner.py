@@ -34,7 +34,6 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from benchmark_manager import BenchmarkManager
 from llm_generator import LLMGenerator
 from test_executor import clean_generated_code, write_test_file, execute_test_file
-from endpoint_extractor import compute as compute_op_coverage
 from coverage_from_pytest import compute as cov_from_pytest
 from schemathesis_runner import SchemathesisRunner
 
@@ -45,7 +44,7 @@ CSV_COLUMNS = [
     "generation_time_s", "execution_time_s",
     "prompt_tokens", "completion_tokens",
     "line_coverage_pct", "branch_coverage_pct", "api_operation_coverage_pct",
-    "cce", "cce_verified", "exit_status", "timeout", "timestamp",
+    "cce", "cce_verified", "total_method_time_s", "exit_status", "timeout", "timestamp",
     "verified_coverage_pct", "attempted_ops", "verified_ops",
 ]
 
@@ -83,17 +82,21 @@ class ExperimentRunner:
             bm.start()
 
         gen = LLMGenerator()
-        record = {
+        record = {col: "" for col in CSV_COLUMNS}
+        record.update({
             "run_id": run_id, "benchmark": benchmark, "method": method,
             "budget_minutes": budget_min, "repetition": rep,
             "generation_time_s": "", "execution_time_s": "",
             "prompt_tokens": "", "completion_tokens": "",
             "line_coverage_pct": "", "branch_coverage_pct": "",
             "api_operation_coverage_pct": "",
-            "cce": "", "cce_verified": "", "exit_status": "unknown", "timeout": False,
+            "cce": "", "cce_verified": "", "total_method_time_s": "", "exit_status": "unknown", "timeout": False,
             "verified_coverage_pct": "", "attempted_ops": "", "verified_ops": "",
             "timestamp": datetime.datetime.now().isoformat(),
-        }
+        })
+        record["cce"] = ""
+        record["cce_verified"] = ""
+        record["total_method_time_s"] = ""
 
         budget_s = budget_min * 60
 
@@ -109,7 +112,8 @@ class ExperimentRunner:
                 res = schem.run()
                 total = len(res.get("attempted_list", [])) or 1
                 record["generation_time_s"] = res["total_time_s"]
-                record["execution_time_s"] = 0.0
+                record["execution_time_s"] = ""
+                record["total_method_time_s"] = res["total_time_s"]
                 record["api_operation_coverage_pct"] = round(
                     res["attempted_ops"] / max(total, 1) * 100, 2
                 ) if res["attempted_ops"] else 0.0
@@ -173,18 +177,13 @@ class ExperimentRunner:
         test_path = PROJECT_ROOT / self.cfg["paths"]["results_processed"] / f"{run_id}.py"
         write_test_file(cleaned, test_path, base_url=bm.base_url)
 
-        # NEW: static API operation coverage (Checkpoint 9)
-        try:
-            cov = compute_op_coverage(Path(bm.compose_file).parents[3] / "sock-shop-oas.json" if False else Path(self.cfg["benchmarks"][0]["oas_path"]), test_path, base_url=bm.base_url)
-            record["api_operation_coverage_pct"] = cov["coverage_pct"]
-        except Exception as e:
-            print(f"coverage extraction failed: {e}")
-            record["api_operation_coverage_pct"] = ""
+        # Coverage is now calculated strictly by coverage_from_pytest.py
 
         print(f"executing {test_path.name} ...")
         exec_result = execute_test_file(test_path, timeout_s=120)
 
         record["execution_time_s"] = exec_result["execution_time_s"]
+        record["total_method_time_s"] = round(record["generation_time_s"] + record["execution_time_s"], 3)
         record["exit_status"] = (
             "timeout" if exec_result["timeout"]
             else f"passed={exec_result['tests_passed']},failed={exec_result['tests_failed']},errors={exec_result['tests_errors']}"
@@ -213,7 +212,7 @@ class ExperimentRunner:
         # Compute CCE = coverage% / generation_time_s (per supervisor correction)
         try:
             cov = record.get('api_operation_coverage_pct')
-            gt  = record.get('generation_time_s')
+            gt  = record.get('total_method_time_s')
             if (isinstance(cov, (int, float)) and not isinstance(cov, bool)
                 and isinstance(gt, (int, float)) and gt > 0):
                 record['cce'] = round(cov / gt, 4)

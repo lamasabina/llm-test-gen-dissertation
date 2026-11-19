@@ -3,6 +3,13 @@ __pycache__/
 *.pyc
 .coverage
 .schemathesis/
-benchmarks/sock-shop/
+benchmarks/
 results/processed/*.py
 results/figures/*.png
+results/raw/*.json
+results/raw/*.py
+.DS_Store
+.pytest_cache/
+*.log
+.env
+.env.*
