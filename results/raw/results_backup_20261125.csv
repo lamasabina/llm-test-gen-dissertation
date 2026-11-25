@@ -1,0 +1,16 @@
+run_id,benchmark,method,budget_minutes,repetition,generation_time_s,execution_time_s,prompt_tokens,completion_tokens,line_coverage_pct,branch_coverage_pct,api_operation_coverage_pct,cce,cce_verified,total_method_time_s,exit_status,timeout,timestamp,verified_coverage_pct,attempted_ops,verified_ops
+schemathesis_sock-shop_5m_rep1_20261119_064407,sock-shop,schemathesis,5,1,4.732,,,,,,100.0,21.1327,8.4531,4.732,"exit=1,attempted=10,verified=4",False,2026-11-19T06:44:07.769943,40.0,10,4
+schemathesis_sock-shop_5m_rep2_20261119_064412,sock-shop,schemathesis,5,2,4.267,,,,,,100.0,23.4357,9.3743,4.267,"exit=1,attempted=10,verified=4",False,2026-11-19T06:44:12.519934,40.0,10,4
+schemathesis_sock-shop_5m_rep3_20261119_064416,sock-shop,schemathesis,5,3,4.342,,,,,,100.0,23.0309,9.2123,4.342,"exit=1,attempted=10,verified=4",False,2026-11-19T06:44:16.805268,40.0,10,4
+schemathesis_sock-shop_5m_rep4_20261119_064421,sock-shop,schemathesis,5,4,4.212,,,,,,100.0,23.7417,9.4967,4.212,"exit=1,attempted=10,verified=4",False,2026-11-19T06:44:21.161074,40.0,10,4
+schemathesis_sock-shop_5m_rep5_20261119_064425,sock-shop,schemathesis,5,5,4.48,,,,,,100.0,22.3214,8.9286,4.48,"exit=1,attempted=10,verified=4",False,2026-11-19T06:44:25.399245,40.0,10,4
+llm_zero_shot_sock-shop_5m_rep1_20261119_064429,sock-shop,llm_zero_shot,5,1,44.426,1.629,741,769,,,0.0,0.0,0.0,46.055,"passed=0,failed=17,errors=0",False,2026-11-19T06:44:29.897472,0.0,0,0
+llm_zero_shot_sock-shop_5m_rep2_20261119_064515,sock-shop,llm_zero_shot,5,2,20.033,0.935,741,416,,,80.0,3.8153,0.4769,20.968,"passed=1,failed=7,errors=0",False,2026-11-19T06:45:15.986729,10.0,8,1
+llm_zero_shot_sock-shop_5m_rep3_20261119_064536,sock-shop,llm_zero_shot,5,3,39.337,1.636,741,829,,,80.0,1.9525,0.9763,40.973,"passed=4,failed=17,errors=0",False,2026-11-19T06:45:36.975803,40.0,8,4
+llm_zero_shot_sock-shop_5m_rep4_20261119_064617,sock-shop,llm_zero_shot,5,4,10.901,0.905,741,232,,,80.0,6.7762,3.3881,11.806,"passed=4,failed=4,errors=0",False,2026-11-19T06:46:17.973712,40.0,8,4
+llm_zero_shot_sock-shop_5m_rep5_20261119_064629,sock-shop,llm_zero_shot,5,5,34.304,1.079,741,710,,,0.0,0.0,0.0,35.383,"passed=1,failed=9,errors=0",False,2026-11-19T06:46:29.808914,0.0,0,0
+llm_few_shot_sock-shop_5m_rep1_20261119_064705,sock-shop,llm_few_shot,5,1,37.006,1.815,1092,644,,,80.0,2.0607,0.2576,38.821,"passed=4,failed=17,errors=0",False,2026-11-19T06:47:05.210964,10.0,8,1
+llm_few_shot_sock-shop_5m_rep2_20261119_064744,sock-shop,llm_few_shot,5,2,62.88,1.25,1092,1221,,,70.0,1.0915,0.1559,64.13,"passed=1,failed=11,errors=0",False,2026-11-19T06:47:44.045060,10.0,7,1
+llm_few_shot_sock-shop_5m_rep3_20261119_064848,sock-shop,llm_few_shot,5,3,37.58,1.475,1092,721,,,80.0,2.0484,0.256,39.055,"passed=4,failed=12,errors=0",False,2026-11-19T06:48:48.208671,10.0,8,1
+llm_few_shot_sock-shop_5m_rep4_20261119_064927,sock-shop,llm_few_shot,5,4,49.295,1.151,1092,958,,,70.0,1.3876,0.3965,50.446,"passed=3,failed=7,errors=0",False,2026-11-19T06:49:27.302139,20.0,7,2
+llm_few_shot_sock-shop_5m_rep5_20261119_065017,sock-shop,llm_few_shot,5,5,48.455,1.163,1092,950,,,70.0,1.4108,0.4031,49.618,"passed=3,failed=7,errors=0",False,2026-11-19T06:50:17.773218,20.0,7,2

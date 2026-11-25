@@ -14,3 +14,5 @@ llm_few_shot_sock-shop_5m_rep2_20261119_064744,sock-shop,llm_few_shot,5,2,62.88,
 llm_few_shot_sock-shop_5m_rep3_20261119_064848,sock-shop,llm_few_shot,5,3,37.58,1.475,1092,721,,,80.0,2.0484,0.256,39.055,"passed=4,failed=12,errors=0",False,2026-11-19T06:48:48.208671,10.0,8,1
 llm_few_shot_sock-shop_5m_rep4_20261119_064927,sock-shop,llm_few_shot,5,4,49.295,1.151,1092,958,,,70.0,1.3876,0.3965,50.446,"passed=3,failed=7,errors=0",False,2026-11-19T06:49:27.302139,20.0,7,2
 llm_few_shot_sock-shop_5m_rep5_20261119_065017,sock-shop,llm_few_shot,5,5,48.455,1.163,1092,950,,,70.0,1.4108,0.4031,49.618,"passed=3,failed=7,errors=0",False,2026-11-19T06:50:17.773218,20.0,7,2
+llm_zero_shot_sock-shop_5m_rep99_20261125_090505,sock-shop,llm_zero_shot,5,99,29.996,1.646,741,415,,,80.0,2.5283,0.6321,31.642,"passed=2,failed=7,errors=0",False,2026-11-25T09:05:06.262308,20.0,8,2
+llm_zero_shot_sock-shop_5m_rep99_20261125_090612,sock-shop,llm_zero_shot,5,99,19.422,0.928,741,415,,,80.0,3.9312,0.9828,20.35,"passed=2,failed=7,errors=0",False,2026-11-25T09:06:12.238476,20.0,8,2

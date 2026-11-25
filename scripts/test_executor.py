@@ -65,76 +65,86 @@ def write_test_file(cleaned_code: str, out_path: Path, base_url: str) -> Path:
 
 
 def execute_test_file(test_path: Path, timeout_s: int = 120) -> dict:
-    """Run pytest on the file. Return structured results."""
+    """
+    Run pytest on the file with JUnit XML output.
+    Parse pass/fail/error from the XML report, not the terminal text.
+
+    Returns:
+        execution_time_s, exit_code, per_test, tests_passed,
+        tests_failed, tests_errors, timeout, junit_xml_path
+    """
+    import xml.etree.ElementTree as ET
+    import tempfile
+
+    xml_path = Path(tempfile.gettempdir()) / f"pytest_{test_path.stem}.xml"
+    if xml_path.exists():
+        xml_path.unlink()
+
     t0 = time.perf_counter()
     try:
         proc = subprocess.run(
-            ["pytest", str(test_path), "-v", "--tb=short"],
+            [
+                "pytest", str(test_path),
+                "-v", "--tb=short",
+                f"--junitxml={xml_path}",
+            ],
             capture_output=True,
             text=True,
             timeout=timeout_s,
         )
         duration = time.perf_counter() - t0
-        stdout = proc.stdout
-        passed = int(re.search(r"(\d+) passed", stdout).group(1)) if re.search(r"(\d+) passed", stdout) else 0
-        failed = int(re.search(r"(\d+) failed", stdout).group(1)) if re.search(r"(\d+) failed", stdout) else 0
-        errors = int(re.search(r"(\d+) error", stdout).group(1)) if re.search(r"(\d+) error", stdout) else 0
-        # NEW: per-test outcomes for coverage measurement
-        per_test = {}
-        for m in re.finditer(r"::(?P<name>test_\S+)\s+(?P<status>PASSED|FAILED|ERROR)", stdout):
-            per_test[m.group("name")] = m.group("status")
-        print(f"[debug] per_test = {per_test}")
-        return {
-            "execution_time_s": round(duration, 3),
-            "exit_code": proc.returncode,
-            "tests_passed": passed,
-            "tests_failed": failed,
-            "tests_errors": errors,
-            "timeout": False,
-            "per_test": per_test,
-            "stdout_full": stdout[:8000],
-            "stdout_tail": "\n".join(stdout.splitlines()[-10:]),
-        }
     except subprocess.TimeoutExpired:
         return {
             "execution_time_s": round(time.perf_counter() - t0, 3),
             "exit_code": -9,
+            "per_test": {},
             "tests_passed": 0,
             "tests_failed": 0,
             "tests_errors": 0,
             "timeout": True,
+            "junit_xml_path": None,
             "stdout_tail": f"TIMEOUT after {timeout_s}s",
         }
 
+    # ── Parse JUnit XML (authoritative source) ─────────────────
+    per_test = {}
+    passed = failed = errors = 0
 
-# ── self-test ───────────────────────────────────────────────
-if __name__ == "__main__":
-    print("=== TestExecutor self-test ===")
-    project = Path(__file__).resolve().parent.parent
-    raw_files = sorted((project / "results" / "raw").glob("llm_zero_shot_*.py"))
-    if not raw_files:
-        raise SystemExit("No raw LLM output found — run Checkpoint 5 first")
+    if xml_path.exists() and xml_path.stat().st_size > 0:
+        try:
+            tree = ET.parse(xml_path)
+            for tc in tree.iter("testcase"):
+                name = tc.get("name") or tc.get("classname") or "unknown"
+                if tc.find("failure") is not None:
+                    per_test[name] = "FAILED"
+                    failed += 1
+                elif tc.find("error") is not None:
+                    per_test[name] = "ERROR"
+                    errors += 1
+                elif tc.find("skipped") is not None:
+                    per_test[name] = "SKIPPED"
+                else:
+                    per_test[name] = "PASSED"
+                    passed += 1
+        except ET.ParseError as e:
+            print(f"[WARN] JUnit XML parse error: {e}")
 
-    raw_path = raw_files[-1]
-    print(f"raw_input     = {raw_path.name}")
-    raw_code = raw_path.read_text()
-    print(f"raw_length    = {len(raw_code)} chars")
-    print(f"raw_starts_with = {raw_code[:30]!r}")
+    # Sanity check: XML count must match pytest summary count
+    xml_total = len(per_test)
+    summary_total = passed + failed + errors
+    if xml_total != summary_total:
+        print(f"[WARN] XML/terminal mismatch: XML={xml_total}, terminal={summary_total}")
 
-    cleaned = clean_generated_code(raw_code)
-    print(f"cleaned_len   = {len(cleaned)} chars")
-    print(f"cleaned_starts = {cleaned[:60]!r}")
+    return {
+        "execution_time_s": round(duration, 3),
+        "exit_code": proc.returncode,
+        "per_test": per_test,
+        "tests_passed": passed,
+        "tests_failed": failed,
+        "tests_errors": errors,
+        "timeout": False,
+        "junit_xml_path": str(xml_path),
+        "stdout_tail": "\n".join((proc.stdout or "").splitlines()[-10:]),
+    }
 
-    test_file = project / "results" / "processed" / "pilot_test_zero_shot.py"
-    write_test_file(cleaned, test_file, base_url="http://localhost:80")
-    print(f"written       = {test_file}")
 
-    print("\nexecuting against live Sock Shop ...")
-    result = execute_test_file(test_file, timeout_s=120)
-    print(f"  execution_time_s = {result['execution_time_s']}")
-    print(f"  exit_code        = {result['exit_code']}")
-    print(f"  passed           = {result['tests_passed']}")
-    print(f"  failed           = {result['tests_failed']}")
-    print(f"  errors           = {result['tests_errors']}")
-    print(f"  timeout          = {result['timeout']}")
-    print("\nSELF-TEST PASSED")

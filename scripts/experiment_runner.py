@@ -183,6 +183,10 @@ class ExperimentRunner:
         exec_result = execute_test_file(test_path, timeout_s=120)
 
         record["execution_time_s"] = exec_result["execution_time_s"]
+        record["tests_passed"] = exec_result.get("tests_passed", 0)
+        record["tests_failed"] = exec_result.get("tests_failed", 0)
+        record["tests_errors"] = exec_result.get("tests_errors", 0)
+        record["per_test"] = exec_result.get("per_test", {})
         record["total_method_time_s"] = round(record["generation_time_s"] + record["execution_time_s"], 3)
         record["exit_status"] = (
             "timeout" if exec_result["timeout"]

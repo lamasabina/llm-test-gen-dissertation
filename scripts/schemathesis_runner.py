@@ -100,7 +100,20 @@ class SchemathesisRunner:
         bugs_found    = int(bugs_m.group(1)) if bugs_m else 0
 
         # Verified = tested operations where API did NOT return 5xx
-        verified = max(0, tested - server_errors)
+        # ── Verified from JUnit XML (same PASSED semantics as LLM) ──
+        verified = 0
+        try:
+            import xml.etree.ElementTree as ET
+            junit_path = self._xml_path()
+            if Path(junit_path).exists() and Path(junit_path).stat().st_size > 0:
+                tree = ET.parse(junit_path)
+                for tc in tree.iter("testcase"):
+                    if (tc.find("failure") is None
+                        and tc.find("error") is None
+                        and tc.find("skipped") is None):
+                        verified += 1
+        except Exception as e:
+            print(f"[WARN] JUnit parse failed: {e}")
 
         # Endpoint list from OAS (Schemathesis enumerates them)
         import json as _json
