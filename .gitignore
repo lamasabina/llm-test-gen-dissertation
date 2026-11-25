@@ -3,7 +3,10 @@ __pycache__/
 *.pyc
 .coverage
 .schemathesis/
-benchmarks/
+# Ignore benchmarks except Sock Shop config
+benchmarks/*
+!benchmarks/sock-shop/
+!benchmarks/sock-shop/**
 results/processed/*.py
 results/figures/*.png
 results/raw/*.json
